@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 from db import engine
+from sqlalchemy import create_engine
+
 
 
 def load_data():

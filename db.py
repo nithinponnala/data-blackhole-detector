@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 
-DB_URL = "postgresql://postgres:admin@localhost:5432/blackhole_db"
+DB_URL = "postgresql://postgres:postgres@blackhole-postgres:5432/blackhole_db"
 
 engine = create_engine(DB_URL)
 
