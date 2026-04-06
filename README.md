@@ -1,39 +1,90 @@
-#  Blackhole Anomaly Detector
+# Blackhole Anomaly Detector
 
-An end-to-end anomaly detection system for identifying unusual financial transactions using machine learning, FastAPI, and Streamlit.
-
----
-
-##  Features
-- Detect anomalies using Isolation Forest
-- Store anomalies in PostgreSQL
-- REST API with filtering support
-- Interactive dashboard with Streamlit
+An end-to-end anomaly detection project for identifying unusual financial transactions. It includes:
+- transaction ingestion and anomaly detection
+- PostgreSQL storage
+- interactive Streamlit dashboard
+- optional FastAPI endpoint for anomaly data
 
 ---
 
-##  Tech Stack
-- Python, Pandas, Scikit-learn
-- FastAPI
+## Features
+- Detects anomalies using Isolation Forest
+- Stores detected anomalies in PostgreSQL
+- Streamlit dashboard for interactive exploration
+- Dockerized deployment for app + database
+
+---
+
+## Tech Stack
+- Python
+- Pandas
+- Scikit-learn
+- SQLAlchemy
 - PostgreSQL
 - Streamlit
+- Docker / Docker Compose
 
 ---
 
-##  How to Run
+## Docker Usage
+Use Docker Compose to launch the app and PostgreSQL together.
 
-### 1. Run anomaly detection
-python anomaly_detection.py
+```bash
+docker compose up --build
+```
 
-### 2. Start API
-uvicorn main:app --reload
+Then open the dashboard at:
 
-### 3. Launch dashboard
+```text
+http://localhost:8501
+```
+
+Stop the stack with:
+
+```bash
+docker compose down
+```
+
+---
+
+## Local Development
+If you want to run components locally without Docker, use these commands from the project root.
+
+1. Install Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Initialize PostgreSQL and load `sql/dump.sql` using your local database tools.
+
+3. Start the Streamlit dashboard:
+
+```bash
 streamlit run dashboard.py
+```
+
+4. (Optional) Start the API:
+
+```bash
+uvicorn main:app --reload
+```
 
 ---
 
-##  What This Project Shows
-- End-to-end ML pipeline
-- Backend API design
-- Data engineering + visualization
+## Project Structure
+- `anomaly_detection.py` — anomaly detection pipeline
+- `dashboard.py` — Streamlit dashboard
+- `main.py` — FastAPI endpoint for anomalies
+- `db.py` — database connection setup
+- `sql/dump.sql` — sample database schema + seeded data
+- `docker-compose.yml` — Docker service definitions
+- `requirements.txt` — Python dependencies
+
+---
+
+## Notes
+- The Docker setup uses `postgres:15` and mounts `sql/dump.sql` to initialize the database.
+- The app currently uses `postgres` / `postgres` credentials for database access.
+- If the dashboard fails to connect after startup, ensure the database service is healthy and the volume is fresh.
